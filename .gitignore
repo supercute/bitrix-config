@@ -1,0 +1,23 @@
+# Composer
+/vendor/
+composer.lock
+
+# PHPUnit
+/.phpunit.result.cache
+/.phpunit.cache
+/phpunit.xml.bak
+clover.xml
+/.php-cs-fixer.cache
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Temp
+*.tmp
+*.log

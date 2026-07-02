@@ -1,0 +1,11 @@
+parameters:
+    level: 0
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '/Unsafe usage of new static\(\)\./'
+        -
+            message: '#^Undefined variable: \$this$#'
+            paths:
+                -   tests/*
+    paths:
+        - src
