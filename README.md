@@ -1,6 +1,8 @@
 # bitrix-config
-
 Библиотека для работы с конфигурацией в 1C-Битрикс с поддержкой `.env`.
+
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-BSD%203--Clause-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
+<a href="https://github.com/vlucas/phpdotenv/releases"><img src="https://img.shields.io/github/release/supercute/bitrix-config.svg?style=flat-square" alt="Latest Version"></img></a>
 
 ## Установка
 
