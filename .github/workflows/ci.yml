@@ -1,11 +1,25 @@
-name: Tests
+name: CI
 
 on:
     push:
     pull_request:
 
 jobs:
-    phpunit:
+    lint:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: "8.4"
+
+            - uses: ramsey/composer-install@v4
+
+            - run: composer lint
+
+    tests:
         runs-on: ubuntu-latest
 
         steps:
