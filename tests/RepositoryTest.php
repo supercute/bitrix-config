@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Supercute\BitrixConfig\Tests;
 
-use RuntimeException;
+use Supercute\BitrixConfig\Exception\InvalidConfigException;
 use Supercute\BitrixConfig\Repository;
 
 class RepositoryTest extends Base
@@ -69,7 +69,7 @@ class RepositoryTest extends Base
         $repository = new Repository();
         $invalidConfigPath = $this->getInvalidConfigPath();
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(InvalidConfigException::class);
         $repository->load($invalidConfigPath);
     }
 

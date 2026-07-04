@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Supercute\BitrixConfig;
 
-use RuntimeException;
+use Supercute\BitrixConfig\Exception\ConfigAlreadyInitializedException;
+use Supercute\BitrixConfig\Exception\ConfigFileNotFoundException;
+use Supercute\BitrixConfig\Exception\ConfigNotInitializedException;
 
 final class Config
 {
     private const DEFAULT_CONFIG_PATH = '/local/php_interface/config.php';
+
     private const DEFAULT_ENV_PATH = '/local/php_interface/.env';
 
     /**
@@ -20,6 +23,7 @@ final class Config
      * @var Environment
      */
     private Environment $environment;
+
     /**
      * @var Repository
      */
@@ -29,10 +33,12 @@ final class Config
      * @var string
      */
     private string $root;
+
     /**
      * @var string
      */
     private string $configFile;
+
     /**
      * @var string
      */
@@ -62,7 +68,7 @@ final class Config
     public static function init(string $root, ?string $configFile = null, ?string $envFile = null): void
     {
         if (self::$instance !== null) {
-            throw new RuntimeException('Config is already initialized.');
+            throw new ConfigAlreadyInitializedException('Config is already initialized.');
         }
 
         $instance = new self($root, $configFile, $envFile);
@@ -74,10 +80,10 @@ final class Config
     /**
      * @return self
      */
-    public static function instance(): self
+    private static function instance(): self
     {
         return self::$instance
-            ?? throw new RuntimeException('Config is not initialized. Call Config::init() first.');
+            ?? throw new ConfigNotInitializedException('Config is not initialized. Call Config::init() first.');
     }
 
     /**
@@ -108,9 +114,9 @@ final class Config
     }
 
     /**
-     * @internal Используется для тестов
+     * @internal Используется только для тестов
      */
-    public static function clear(): void
+    public static function resetForTests(): void
     {
         self::$instance = null;
     }
@@ -133,7 +139,7 @@ final class Config
     private static function assertReadable(string $path): void
     {
         if (!is_file($path) || !is_readable($path)) {
-            throw new RuntimeException(sprintf('Config file is missing or not readable: %s', $path));
+            throw new ConfigFileNotFoundException(sprintf('Config file is missing or not readable: %s', $path));
         }
     }
 }

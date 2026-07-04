@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Supercute\BitrixConfig\Tests;
 
-use RuntimeException;
 use Supercute\BitrixConfig\Config;
+use Supercute\BitrixConfig\Exception\ConfigAlreadyInitializedException;
+use Supercute\BitrixConfig\Exception\ConfigFileNotFoundException;
+use Supercute\BitrixConfig\Exception\ConfigNotInitializedException;
 
 class ConfigTest extends Base
 {
@@ -33,23 +35,17 @@ class ConfigTest extends Base
         $this->assertNull(config('not.exists'));
     }
 
-    public function testInstanceThrowsWhenNotInitialized(): void
-    {
-        $this->expectException(RuntimeException::class);
-        Config::instance();
-    }
-
     public function testInitThrowsOnSecondCall(): void
     {
         $this->initConfig();
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ConfigAlreadyInitializedException::class);
         $this->initConfig();
     }
 
     public function testInitThrowsWhenConfigFileMissing(): void
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ConfigFileNotFoundException::class);
 
         $this->initConfig(configFile: $this->getConfigPath() . '.missing');
     }
@@ -64,9 +60,11 @@ class ConfigTest extends Base
     public function testClearResetsInstance(): void
     {
         $this->initConfig();
-        Config::clear();
 
-        $this->expectException(RuntimeException::class);
-        Config::instance();
+        Config::resetForTests();
+
+        $this->expectException(ConfigNotInitializedException::class);
+
+        Config::env('APP_ENV');
     }
 }

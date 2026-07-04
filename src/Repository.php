@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Supercute\BitrixConfig;
 
-use RuntimeException;
+use Supercute\BitrixConfig\Exception\InvalidConfigException;
 
 class Repository
 {
@@ -22,7 +22,7 @@ class Repository
         $config = require $path;
 
         if (!is_array($config)) {
-            throw new RuntimeException(
+            throw new InvalidConfigException(
                 sprintf('Config file must return an array, got %s: %s', get_debug_type($config), $path),
             );
         }

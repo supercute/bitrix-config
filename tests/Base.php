@@ -31,7 +31,7 @@ abstract class Base extends TestCase
      */
     protected function setUp(): void
     {
-        Config::clear();
+        Config::resetForTests();
         $this->fixturesDir = dirname(__DIR__) . '/tests/fixtures';
     }
 
