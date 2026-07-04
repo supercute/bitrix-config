@@ -126,7 +126,7 @@ final class Config
      */
     private function bootstrap(): void
     {
-        self::assertReadable($this->configFile);
+        $this->assertReadable($this->configFile);
 
         $this->environment->load($this->envFile);
         $this->repository->load($this->configFile);
@@ -136,7 +136,7 @@ final class Config
      * @param string $path
      * @return void
      */
-    private static function assertReadable(string $path): void
+    private function assertReadable(string $path): void
     {
         if (!is_file($path) || !is_readable($path)) {
             throw new ConfigFileNotFoundException(sprintf('Config file is missing or not readable: %s', $path));
