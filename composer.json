@@ -41,7 +41,8 @@
         "fix": "php-cs-fixer fix",
         "lint": [
             "php-cs-fixer fix --dry-run --diff",
-            "phpstan analyse"
+            "phpstan analyse",
+            "rector process"
         ]
     }
 }
