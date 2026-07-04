@@ -38,11 +38,14 @@
     },
     "scripts": {
         "test": "phpunit",
-        "fix": "php-cs-fixer fix",
+        "fix": [
+            "php-cs-fixer fix",
+            "rector process"
+        ],
         "lint": [
             "php-cs-fixer fix --dry-run --diff",
             "phpstan analyse",
-            "rector process"
+            "rector process --dry-run"
         ]
     }
 }

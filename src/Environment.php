@@ -8,10 +8,6 @@ use Dotenv\Dotenv;
 
 class Environment
 {
-    /**
-     * @param string $path
-     * @return void
-     */
     public function load(string $path): void
     {
         // Файла может не быть — тогда просто используем переменные окружения ОС
@@ -32,10 +28,6 @@ class Environment
         return $value === null ? $default : $this->cast($value);
     }
 
-    /**
-     * @param string $key
-     * @return string|null
-     */
     private function find(string $key): ?string
     {
         $value = getenv($key);
@@ -47,10 +39,6 @@ class Environment
         return isset($_ENV[$key]) ? (string) $_ENV[$key] : null;
     }
 
-    /**
-     * @param string $value
-     * @return mixed
-     */
     private function cast(string $value): mixed
     {
         return match (strtolower($value)) {
@@ -62,10 +50,6 @@ class Environment
         };
     }
 
-    /**
-     * @param string $value
-     * @return string
-     */
     private function unquote(string $value): string
     {
         // regex из Laravel

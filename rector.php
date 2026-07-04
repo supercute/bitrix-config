@@ -22,9 +22,6 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         __DIR__ . '/tests/fixtures',
-        \Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector::class,
-        \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
-        \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector::class,
         \Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
         \Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class,
         \Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector::class,

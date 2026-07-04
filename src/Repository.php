@@ -8,15 +8,8 @@ use Supercute\BitrixConfig\Exception\InvalidConfigException;
 
 class Repository
 {
-    /**
-     * @var array|null
-     */
     private ?array $config = null;
 
-    /**
-     * @param string $path
-     * @return void
-     */
     public function load(string $path): void
     {
         $config = require $path;
@@ -30,10 +23,6 @@ class Repository
         $this->config = $config;
     }
 
-    /**
-     * @param string $key
-     * @return mixed
-     */
     public function get(string $key): mixed
     {
         if ($this->config === null) {

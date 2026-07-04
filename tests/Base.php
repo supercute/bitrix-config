@@ -21,23 +21,14 @@ abstract class Base extends TestCase
         'NULL_VALUE',
     ];
 
-    /**
-     * @var string
-     */
     private string $fixturesDir;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         Config::resetForTests();
         $this->fixturesDir = dirname(__DIR__) . '/tests/fixtures';
     }
 
-    /**
-     * @return void
-     */
     protected function tearDown(): void
     {
         // Подчищаем переменные окружения, выставленные Dotenv в текущем тесте,
@@ -48,36 +39,21 @@ abstract class Base extends TestCase
         }
     }
 
-    /**
-     * @return string
-     */
     protected function getRootPath(): string
     {
         return $this->fixturesDir;
     }
 
-    /**
-     * @return string
-     */
     protected function getConfigPath(): string
     {
         return $this->fixturesDir . '/config.php';
     }
 
-    /**
-     * @return string
-     */
     protected function getEnvPath(): string
     {
         return $this->fixturesDir . '/.env';
     }
 
-    /**
-     * @param string|null $root
-     * @param string|null $configFile
-     * @param string|null $envFile
-     * @return void
-     */
     protected function initConfig(
         ?string $root = null,
         ?string $configFile = null,

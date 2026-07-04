@@ -14,41 +14,18 @@ final class Config
 
     private const DEFAULT_ENV_PATH = '/local/php_interface/.env';
 
-    /**
-     * @var Config|null
-     */
-    private static ?self $instance = null;
+    private static ?Config $instance = null;
 
-    /**
-     * @var Environment
-     */
     private Environment $environment;
 
-    /**
-     * @var Repository
-     */
     private Repository $repository;
 
-    /**
-     * @var string
-     */
     private string $root;
 
-    /**
-     * @var string
-     */
     private string $configFile;
 
-    /**
-     * @var string
-     */
     private string $envFile;
 
-    /**
-     * @param string $root
-     * @param string|null $configFile
-     * @param string|null $envFile
-     */
     private function __construct(string $root, ?string $configFile, ?string $envFile)
     {
         $this->root = rtrim($root, '/');
@@ -59,12 +36,6 @@ final class Config
         $this->repository = new Repository();
     }
 
-    /**
-     * @param string $root
-     * @param string|null $configFile
-     * @param string|null $envFile
-     * @return void
-     */
     public static function init(string $root, ?string $configFile = null, ?string $envFile = null): void
     {
         if (self::$instance !== null) {
@@ -77,9 +48,6 @@ final class Config
         $instance->bootstrap();
     }
 
-    /**
-     * @return self
-     */
     private static function instance(): self
     {
         return self::$instance
@@ -87,27 +55,18 @@ final class Config
     }
 
     /**
-     * @param string $key
      * @param mixed|null $default
-     * @return mixed
      */
     public static function env(string $key, mixed $default = null): mixed
     {
         return self::instance()->environment->get($key, $default);
     }
 
-    /**
-     * @param string $key
-     * @return mixed
-     */
     public static function config(string $key): mixed
     {
         return self::instance()->repository->get($key);
     }
 
-    /**
-     * @return string
-     */
     public static function root(): string
     {
         return self::instance()->root;
@@ -121,9 +80,6 @@ final class Config
         self::$instance = null;
     }
 
-    /**
-     * @return void
-     */
     private function bootstrap(): void
     {
         $this->assertReadable($this->configFile);
@@ -132,10 +88,6 @@ final class Config
         $this->repository->load($this->configFile);
     }
 
-    /**
-     * @param string $path
-     * @return void
-     */
     private function assertReadable(string $path): void
     {
         if (!is_file($path) || !is_readable($path)) {
